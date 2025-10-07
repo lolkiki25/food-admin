@@ -1,11 +1,12 @@
+import { FoodDialog } from "./_components/FoodDialog";
+import { Header } from "./_components/Header";
 import { Sidebar } from "./_components/Sidebar";
-import { FoodDialog } from "@/components/admin/FoodDialog";
+
 
 export default function Home() {
     return (
-        <div className="flex">
-            <Sidebar />
-            <FoodDialog />
+        <div>
+            <FoodDialog/>
         </div>
     )
 };
