@@ -1,123 +1,145 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogTrigger,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { ChangeEvent, ChangeEventHandler, ReactHTMLElement, useState } from "react";
+import { Label } from "@/components/ui/label";
+import { ChangeEvent, useState, } from "react";
 
-
-export function FoodDialog() {
-
+export const FoodDialog = () => {
+  const [image, setImage] = useState<File | undefined>();
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
-  const addFoodHandler = () =>{
-    fetch('http://localhost:3300/food-dialog',{
-      method: "Post",
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name,
-        price,
-      })
-    })
-  };
-const nameChangeHandler = (e:ChangeEvent<HTMLInputElement>) =>{
-console.log()
-setName(e.target.value)
-}
+  const [ingredients, setIngredients] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
 
-const priceChangeHandler =(e:ChangeEvent<HTMLInputElement>) =>{
-setPrice(Number(e.target.value));
-}
+  const addFoodHandler = async () => {
+    if (!name || !price || !image || !ingredients || !category) {
+      alert("All fields are required");
+      return;
+    }
+
+    const form = new FormData();
+
+    form.append("foodName", name);
+    form.append("price", String(price));
+    form.append("asd", image); // File object
+    form.append("ingredients", ingredients);
+    form.append("category", category);
+
+    try {
+      const response = await fetch("http://localhost:4000/create-food", {
+        method: "POST",
+        body: form,
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Food created successfully!");
+        setName("");
+        setPrice(0);
+        setImage(undefined);
+        setIngredients("");
+        setCategory("");
+      } else {
+        alert(data.error || "Failed to create food");
+      }
+    } catch (error) {
+      alert("Failed to create food");
+    }
+  };
+  const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setPrice(Number(e.target.value));
+  };
+  const fileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImage(e.target.files[0]);
+    }
+  };
+  const ingredientsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setIngredients(e.target.value);
+  };
+  const categoryChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setCategory(e.target.value);
+  };
   return (
     <Dialog>
-      {/* Trigger button */}
-      <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          className="border border-dashed border-red-500 rounded-lg w-[270px] h-[240px] flex flex-col items-center justify-center gap-6 hover:bg-red-50"
-        >
-          <div className="bg-red-500 w-10 h-10 rounded-full flex items-center justify-center">
-            <p className="text-xl text-white">+</p>
-          </div>
-          <p className="text-[14px] text-gray-700 ">
-            Add new Dish to Appetizers
-          </p>
-        </Button>
+      <DialogTrigger asChild >
+        <div className="w-[270px] h-[241px] border border-dashed flex flex-col justify-center items-center border-red-500 rounded-lg gap-6 text-center p-15">
+          <p className="w-10 h-10 bg-red-500 flex justify-center items-center rounded-full text-white">+</p>
+          <h1 className="text-[14px]">Add new Dish to Appetizers</h1>
+        </div>
       </DialogTrigger>
-
-      {/* Dialog content */}
-      <DialogContent className="w-[460px]">
+      <DialogContent className="sm:max-w-[472px]">
         <DialogHeader>
-          <DialogTitle>Add New Dish to Appetizers</DialogTitle>
+          <DialogTitle>Dishes info</DialogTitle>
         </DialogHeader>
-          {/* Food name + price */}
-          <div className="flex gap-6">
-            <div className="flex-1 flex flex-col gap-2">
-              <Label htmlFor="name">Food name</Label>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-               defaultValue={name}
-                value={name}
-                onChange={nameChangeHandler}
-              />
-            </div>
-
-            <div className="flex-1 flex flex-col gap-2">
-              <Label htmlFor="price">Food price</Label>
-              <Input
-                id="price"
-                type="number"
-                defaultValue="0"
-                value={price}
-                onChange={priceChangeHandler}
-              />
-            </div>
-          </div>
-
-          {/* Ingredients */}
-          <div className="flex flex-col gap-2 mt-6">
-            <Label htmlFor="ingredients">Ingredients</Label>
-            <Textarea
-              id="ingredients"
-              placeholder="List ingredients..."
-              className="resize-none"
-              required
+        <div className="gap-4">
+          <div className=" gap-3 flex">
+            <Label htmlFor="name" className="text-gray-400 text-sm w-[200px]">Dish name</Label>
+            <Input
+              id="name"
+              name="name"
+              defaultValue={name}
+              value={name}
+              onChange={nameChangeHandler}
             />
           </div>
-          <div className="flex flex-col gap-3 mt-6">
-            <Label htmlFor="picture">Food image</Label>
-
-            <label
-              htmlFor="picture"
-              className=" h-[138px] flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
-            >
-              <Input
-                id="picture"
-                type="file"
-                className="hidden"
-              />
-              <p className="text-gray-500 text-sm">Choose a file or drag & drop it here</p>
-            </label>
+           <div className="gap-3 flex mt-6">
+            <Label htmlFor="category" className="text-gray-400 text-sm w-[200px]">Dish category</Label>
+            <Input
+              id="category"
+              name="category"
+              value={category}
+              onChange={categoryChangeHandler}
+            />
           </div>
-          {/* Submit button */}
-          <div className="flex justify-end">
-            <Button type="submit" className="bg-black text-white text-[14px]" onClick={addFoodHandler}>
-              Add Dish
-            </Button>
+          <div className="flex mt-6 gap-3">
+            <Label htmlFor="ingredients" className="text-gray-400 text-sm w-[200px]">Ingredients</Label>
+            <Input
+            className="h-15"
+              id="ingredients"
+              name="ingredients"
+              value={ingredients}
+              onChange={ingredientsChangeHandler}
+            />
           </div>
+          <div className="flex mt-6 gap-3">
+            <Label htmlFor="price" className="text-gray-400 text-sm w-[200px]">Price</Label>
+            <Input
+              id="price"
+              name="price"
+              type="number"
+              defaultValue="0"
+              value={price}
+              onChange={priceChangeHandler}
+            />
+          </div>
+          <div className="flex mt-6 items-center gap-3">
+            <Label htmlFor="picture" className="text-gray-400 text-sm w-[200px]">Image</Label>
+            <Input className="h-30" id="picture" type="file" onChange={fileChangeHandler} />
+          </div>
+          <Button
+            type="submit"
+            size={"sm"}
+            className="w-fit px-4 py-[10px] mt-10"
+            onClick={addFoodHandler}
+          >
+            <p className="leading-5"> Save changes</p>
+          </Button>
+        </div>
+        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   );
-}
+};
