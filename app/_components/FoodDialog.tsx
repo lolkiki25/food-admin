@@ -11,21 +11,33 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ReactHTMLElement, useState } from "react";
-import { Target } from "lucide-react";
+import { ChangeEvent, ChangeEventHandler, ReactHTMLElement, useState } from "react";
+
 
 export function FoodDialog() {
 
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
-
   const addFoodHandler = () =>{
-    console.log()
+    fetch('http://localhost:3300/food-dialog',{
+      method: "Post",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        price,
+      })
+    })
   };
-const nameChangeHandler = (e:ReactHTMLElement<HTMLInputElement>) =>{
-  setName(e.target.value)
+const nameChangeHandler = (e:ChangeEvent<HTMLInputElement>) =>{
+console.log()
+setName(e.target.value)
 }
 
+const priceChangeHandler =(e:ChangeEvent<HTMLInputElement>) =>{
+setPrice(Number(e.target.value));
+}
   return (
     <Dialog>
       {/* Trigger button */}
@@ -37,45 +49,45 @@ const nameChangeHandler = (e:ReactHTMLElement<HTMLInputElement>) =>{
           <div className="bg-red-500 w-10 h-10 rounded-full flex items-center justify-center">
             <p className="text-xl text-white">+</p>
           </div>
-          <p className="text-[14px] text-gray-700 max-w-[154px] text-center">
+          <p className="text-[14px] text-gray-700 ">
             Add new Dish to Appetizers
           </p>
         </Button>
       </DialogTrigger>
 
       {/* Dialog content */}
-      <DialogContent className="max-w-[500px]">
+      <DialogContent className="w-[460px]">
         <DialogHeader>
           <DialogTitle>Add New Dish to Appetizers</DialogTitle>
         </DialogHeader>
-
-        {/* form section */}
-        <form className="space-y-4 mt-4">
           {/* Food name + price */}
           <div className="flex gap-6">
             <div className="flex-1 flex flex-col gap-2">
-              <Label htmlFor="food-name">Food name</Label>
+              <Label htmlFor="name">Food name</Label>
               <Input
-                id="food-name"
+                id="name"
+                name="name"
                 type="text"
-                placeholder="Type food name"
-                required
+               defaultValue={name}
+                value={name}
+                onChange={nameChangeHandler}
               />
             </div>
 
             <div className="flex-1 flex flex-col gap-2">
-              <Label htmlFor="food-price">Food price</Label>
+              <Label htmlFor="price">Food price</Label>
               <Input
-                id="food-price"
+                id="price"
                 type="number"
-                placeholder="Enter price..."
-                required
+                defaultValue="0"
+                value={price}
+                onChange={priceChangeHandler}
               />
             </div>
           </div>
 
           {/* Ingredients */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mt-6">
             <Label htmlFor="ingredients">Ingredients</Label>
             <Textarea
               id="ingredients"
@@ -84,7 +96,7 @@ const nameChangeHandler = (e:ReactHTMLElement<HTMLInputElement>) =>{
               required
             />
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 mt-6">
             <Label htmlFor="picture">Food image</Label>
 
             <label
@@ -105,7 +117,6 @@ const nameChangeHandler = (e:ReactHTMLElement<HTMLInputElement>) =>{
               Add Dish
             </Button>
           </div>
-        </form>
       </DialogContent>
     </Dialog>
   );
