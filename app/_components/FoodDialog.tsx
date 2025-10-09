@@ -35,7 +35,7 @@ export const FoodDialog = () => {
     form.append("category", category);
 
     try {
-      const response = await fetch("http://localhost:4000/create-food", {
+      const response = await fetch("http://localhost:4000/api/food", {
         method: "POST",
         body: form,
       });
