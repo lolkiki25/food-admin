@@ -10,8 +10,21 @@ export const Sidebar = () => {
           <p className="font-inter text-[13px] text-gray-500">Swift delivery</p>
         </div>
       </div>
-      <button className="bg-black w-[165px] h-10 rounded-4xl text-white mt-[40px]">Food menu</button>
-      <button className="w-[165px] h-10 rounded-4xl text-black mt-[34px]">Orders</button>
+      <div className="bg-black w-[165px] h-10 rounded-4xl text-white mt-[40px] flex items-center gap-2 justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M6.25 0.75H1.66667C1.16041 0.75 0.75 1.16041 0.75 1.66667V8.08333C0.75 8.58959 1.16041 9 1.66667 9H6.25C6.75626 9 7.16667 8.58959 7.16667 8.08333V1.66667C7.16667 1.16041 6.75626 0.75 6.25 0.75Z" stroke="#E4E4E7" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M16.3333 0.75H11.75C11.2437 0.75 10.8333 1.16041 10.8333 1.66667V4.41667C10.8333 4.92293 11.2437 5.33333 11.75 5.33333H16.3333C16.8396 5.33333 17.25 4.92293 17.25 4.41667V1.66667C17.25 1.16041 16.8396 0.75 16.3333 0.75Z" stroke="#E4E4E7" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M16.3333 9H11.75C11.2437 9 10.8333 9.41041 10.8333 9.91667V16.3333C10.8333 16.8396 11.2437 17.25 11.75 17.25H16.3333C16.8396 17.25 17.25 16.8396 17.25 16.3333V9.91667C17.25 9.41041 16.8396 9 16.3333 9Z" stroke="#E4E4E7" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M6.25 12.6667H1.66667C1.16041 12.6667 0.75 13.0771 0.75 13.5833V16.3333C0.75 16.8396 1.16041 17.25 1.66667 17.25H6.25C6.75626 17.25 7.16667 16.8396 7.16667 16.3333V13.5833C7.16667 13.0771 6.75626 12.6667 6.25 12.6667Z" stroke="#E4E4E7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <button>Food menu</button>
+      </div>
+      <div className="w-[165px] h-10 rounded-4xl mt-[24px] flex items-center gap-2 justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 20 15" fill="none">
+          <path d="M8.16732 11.583H11.834M11.834 11.583V0.583008H0.833984V11.583H3.58398M11.834 11.583H12.7507M17.334 11.583H19.1673V8.52134C19.1677 8.03969 19.0732 7.56267 18.8892 7.11756C18.7051 6.67244 18.4352 6.26795 18.0948 5.92717L16.4173 4.24967H11.834M8.16732 12.0413C8.16732 13.307 7.1413 14.333 5.87565 14.333C4.61 14.333 3.58398 13.307 3.58398 12.0413C3.58398 10.7757 4.61 9.74968 5.87565 9.74968C7.1413 9.74968 8.16732 10.7757 8.16732 12.0413ZM17.334 12.0413C17.334 13.307 16.308 14.333 15.0423 14.333C13.7767 14.333 12.7507 13.307 12.7507 12.0413C12.7507 10.7757 13.7767 9.74968 15.0423 9.74968C16.308 9.74968 17.334 10.7757 17.334 12.0413Z" stroke="#09090B" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <button>Orders</button>
+      </div>
     </div>
   );
 };
