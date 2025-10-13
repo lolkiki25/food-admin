@@ -64,8 +64,8 @@ export default function ProductPage() {
 
   return (
     <AdminLayout>
-      <div className="bg-white rounded-lg w-screen p-6 mb-6">
-        <p className="text-[20px] font-inter mb-6">Dishes category</p>
+      <div className="bg-white rounded-lg p-6 mb-6 mr-10">
+        <p className="text-[19px] font-bold mb-6">Dishes category</p>
         <div className="flex flex-wrap gap-2">
           {categories.map((category) => (
             <div
@@ -84,7 +84,7 @@ export default function ProductPage() {
               <Badge
                 onClick={() => setModalOpen(true)}
                 variant={"outline"}
-                className="cursor-pointer hover:bg-gray-500/20"
+                className="cursor-pointer text-white w-10 h-10 font-inter rounded-full bg-red-500"
               >
                 +
               </Badge>

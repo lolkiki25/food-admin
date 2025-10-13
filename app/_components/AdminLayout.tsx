@@ -12,7 +12,7 @@ export const AdminLayout = ({
 }) => {
   const customStyle = className + " w-full";
   return (
-    <div className="flex bg-gray-100 gap-6">
+    <div className="flex bg-gray-100 gap-6 w-screen">
       <Sidebar />
       <div className={customStyle}>
         <Header />
