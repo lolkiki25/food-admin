@@ -7,7 +7,7 @@ export const Sidebar = () => {
         </svg>
         <div>
           <h1 className="font-bold text-[18px]">NomNom</h1>
-          <p className="font-bold text-[12px] text-gray-400">Swift delivery</p>
+          <p className="font-inter text-[13px] text-gray-500">Swift delivery</p>
         </div>
       </div>
       <button className="bg-black w-[165px] h-10 rounded-4xl text-white mt-[40px]">Food menu</button>
