@@ -8,14 +8,14 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 
-type MovieCardProps = {
+type FoodCardProps = {
   title: string;
   score: number;
   image: string;
   id: number;
 };
 
-export const MovieCard = ({ title, score, image, id }: MovieCardProps) => {
+export const FoodCard = ({ title, score, image, id }: FoodCardProps) => {
   return (
     <Link href={`/detail/${id}`}>
       <Card className="max-w-[270px] max-h-[241px] bg-secondary p-0 overflow-hidden gap-2">

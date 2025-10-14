@@ -74,7 +74,7 @@ export const FoodDialog = () => {
   };
   return (
     <Dialog>
-      <div className="mt-10 bg-white rounded-lg p-6 mb-6 mr-10">
+      <div className="mt-6 bg-white rounded-lg p-6 mb-6 mr-10">
         <DialogTrigger asChild >
           <div className="w-[270px] h-[241px] border border-dashed flex flex-col justify-center items-center border-red-500 rounded-lg gap-6 text-center p-15">
             <p className="w-10 h-10 bg-red-500 flex justify-center items-center rounded-full text-white">+</p>

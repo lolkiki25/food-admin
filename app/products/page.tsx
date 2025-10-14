@@ -21,7 +21,7 @@ export default function ProductPage() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const getCategories = async () => {
-    const result = await fetch("http://localhost:4000/api/categories");
+    const result = await fetch("http://localhost:5000/api/categories");
     const responseData = await result.json();
     console.log({ responseData });
     const { data } = responseData;
@@ -37,7 +37,7 @@ export default function ProductPage() {
     setNewCategory(e.target.value);
   };
   const createCategoryHandler = async () => {
-    await fetch("http://localhost:4000/api/categories", {
+    await fetch("http://localhost:5000/api/categories", {
       method: "POST",
       mode: "no-cors",
       headers: {
@@ -52,7 +52,7 @@ export default function ProductPage() {
   };
 
   const deleteCategoryHandler = async (category: string) => {
-    await fetch("http://localhost:4000/api/categories/delete", {
+    await fetch("http://localhost:5000/api/categories/delete", {
       method: "POST",
       mode: "no-cors",
       headers: {
@@ -64,7 +64,7 @@ export default function ProductPage() {
 
   return (
     <AdminLayout>
-      <div className="bg-white rounded-lg p-6 mb-6 mr-10">
+      <div className="bg-white rounded-lg p-6 mr-10">
         <p className="text-[20px] font-bold mb-6">Dishes category</p>
         <div className="flex flex-wrap gap-2">
           {categories.map((category) => (
