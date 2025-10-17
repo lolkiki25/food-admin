@@ -12,47 +12,34 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, useState, } from "react";
-
+import { addFoodHandler } from "./_utils/add-food-util";
 export const FoodDialog = () => {
-  const [image, setImage] = useState<File | undefined>();
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
+  const [dishCategory, setDishCategory] = useState<string>("");
   const [ingredients, setIngredients] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-
+  const [image, setImage] = useState<File | undefined>();
   const addFoodHandler = async () => {
-    if (!name || !price || !image || !ingredients || !category) {
-      alert("All fields are required");
+    if(!name || !price || !dishCategory || !ingredients || !image ) {
+      alert("Please fill all the fields");
       return;
     }
 
-    const form = new FormData();
-
-    form.append("foodName", name);
-    form.append("price", String(price));
-    form.append("asd", image); // File object
-    form.append("ingredients", ingredients);
-    form.append("category", category);
-
-    try {
-      const response = await fetch("http://localhost:4000/api/food", {
-        method: "POST",
-        body: form,
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        alert("Food created successfully!");
-        setName("");
-        setPrice(0);
-        setImage(undefined);
-        setIngredients("");
-        setCategory("");
-      } else {
-        alert(data.error || "Failed to create food");
-      }
-    } catch (error) {
-      alert("Failed to create food");
+    const formData = new FormData();
+    
+    formData.append("name", name);
+    formData.append("price", String());
+    formData.append("dishCategory", dishCategory);
+    formData.append("ingredients", ingredients);
+    fetch("http://localhost:5000/api/food"),{
+      method: "POST",
+      headers:{
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        price,
+      })
     }
   };
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,17 +48,13 @@ export const FoodDialog = () => {
   const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setPrice(Number(e.target.value));
   };
-  const fileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImage(e.target.files[0]);
-    }
+  const dishCategoryChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setDishCategory(e.target.value);
   };
   const ingredientsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setIngredients(e.target.value);
   };
-  const categoryChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setCategory(e.target.value);
-  };
+
   return (
     <Dialog>
       <div className="mt-6 bg-white rounded-lg p-6 mb-6 mr-10">
@@ -101,8 +84,9 @@ export const FoodDialog = () => {
               <Input
                 id="category"
                 name="category"
-                value={category}
-                onChange={categoryChangeHandler}
+                defaultValue="dishCategory"
+                value={dishCategory}
+                onChange={dishCategoryChangeHandler}
               />
             </div>
             <div className="flex mt-6 gap-3">
@@ -111,6 +95,7 @@ export const FoodDialog = () => {
                 className="h-15"
                 id="ingredients"
                 name="ingredients"
+                defaultValue="ingredients"
                 value={ingredients}
                 onChange={ingredientsChangeHandler}
               />
@@ -128,7 +113,7 @@ export const FoodDialog = () => {
             </div>
             <div className="flex mt-6 items-center gap-3">
               <Label htmlFor="picture" className="text-gray-400 text-sm w-[200px]">Image</Label>
-              <Input className="h-30" id="picture" type="file" onChange={fileChangeHandler} />
+              <Input className="h-30" id="picture" type="file" />
             </div>
             <Button
               type="submit"
@@ -144,4 +129,4 @@ export const FoodDialog = () => {
       </div>
     </Dialog>
   );
-};
+}

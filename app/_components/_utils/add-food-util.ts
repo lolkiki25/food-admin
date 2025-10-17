@@ -19,7 +19,7 @@ export const addFoodHandler = async (
   form.append("category", category);
 
   try {
-    const response = await fetch("http://localhost:4000/api/food", {
+    const response = await fetch("http://localhost:5000/api/food", {
       method: "POST",
       body: form,
     });
