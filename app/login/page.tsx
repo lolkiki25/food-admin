@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 const Page = () => {
   const [password, setPassword] = useState<string>("");
@@ -39,8 +40,8 @@ const Page = () => {
     }
   };
   return (
-    <div className="flex justify-end items-center gap-10 pr-5 py-5">
-      <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex justify-center items-center gap-10 pr-5 py-5">
+      <div className="flex flex-col items-center justify-center h-screen pl-25">
         <div className="w-90">
           <Button variant="outline" onClick={onLogin} className="mb-6 max-w-[36px]">
             /
@@ -61,16 +62,27 @@ const Page = () => {
             className="mt-4 mb-4"
           />
 
-          <Button variant="outline" onClick={onLogin} className="bg-gray-300 w-[360px] hover:bg-black">
+          <Button variant="outline" onClick={onLogin} className="bg-gray-300 w-full mt-6 hover:bg-black hover:text-white">
             Let's Go
           </Button>
         </div>
         <div className="flex gap-3 text-center justify-center mt-6 text-sm">
           <p className="text-gray-500">Already have an account?</p>
-          <p className="text-blue-500 cursor-pointer" onClick={(onLogin) => setStep(1)}>Sign up</p>
+          <p
+            className="text-blue-500 cursor-pointer"
+            onClick={() => router.push("/register")}
+          >
+            Sign up
+          </p>
         </div>
       </div>
-      <div className="border w-200 rounded-lg"></div>
+      <Image
+        src="/frame.png" // зураг public фолдерт байх ёстой
+        alt="Food Image"
+        width={856}
+        height={904}
+        className="rounded-lg object-cover"
+      />
     </div>
   );
 };
